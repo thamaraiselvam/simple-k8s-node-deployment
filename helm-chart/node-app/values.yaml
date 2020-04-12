@@ -1,0 +1,22 @@
+replicaCount: 1
+
+port: 3000
+
+image:
+  repository: thamaraiselvam/node-app
+  version: "latest"
+  pullPolicy: Always
+
+db:
+  host: db-mongodb.default.svc.cluster.local
+  username: bXktdXNlcg==
+  password: bXktcGFzc3dvcmQ=
+  port: 27017
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 80

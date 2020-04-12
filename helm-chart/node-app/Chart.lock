@@ -1,0 +1,6 @@
+dependencies:
+- name: mongo-express
+  repository: https://cowboysysop.github.io/charts/
+  version: 1.1.0
+digest: sha256:0898c469e52598d4907655c312df8ffbddfdf639d1760ba43807b067e77bd5c3
+generated: "2020-04-12T00:10:25.082454+05:30"

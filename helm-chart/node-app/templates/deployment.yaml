@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "node-app.fullname" . }}
+  labels:
+    {{- include "node-app.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "node-app.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "node-app.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.version }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - name: http
+          containerPort: {{ .Values.port }}
+          protocol: TCP
+        env:
+        - name: PORT
+          value: "{{ .Values.port }}"
+        - name: DBHOST
+          value: "{{ .Values.db.host }}"
+        - name: DBPORT
+          value: "{{ .Values.db.port }}"
+        - name: DBUSERNAME
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "node-app.fullname" . }}
+              key: dbusername
+        - name: DBPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "node-app.fullname" . }}
+              key: dbpassword

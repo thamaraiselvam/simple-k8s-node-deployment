@@ -1,0 +1,24 @@
+minikube start --cpus 4 --memory 8192
+
+Install Harbour
+-----------
+
+
+build node app and push to Harbour
+-------------
+
+
+push helm chart to Harbour
+---------------
+
+Install Prometheus operator
+--------
+helm install prometheus-operator stable/prometheus-operator --set "prometheus.prometheusSpec.serviceMonitorSelectorNilUsesHelmValues=false"
+
+Install mongodb:
+--------
+helm install db --set mongodbRootPassword=secretpassword,mongodbUsername=my-user,mongodbPassword=my-password,mongodbDatabase=contacts,metrics.enabled=true,metrics.serviceMonitor.enabled=true stable/mongodb
+
+Install Node app
+-----
+helm install --generate-name .
